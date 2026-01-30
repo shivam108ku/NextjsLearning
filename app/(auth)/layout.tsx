@@ -1,9 +1,11 @@
-import React from 'react'
+type AuthLayoutProps = Readonly<{
+  children: React.ReactNode
+}>
 
-const layout = () => {
+export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div>layout</div>
+    <div className="min-h-screen flex items-center justify-center bg-black text-white">
+      {children}
+    </div>
   )
 }
-
-export default layout
