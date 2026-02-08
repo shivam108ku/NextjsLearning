@@ -5,7 +5,7 @@ const Dashboard = () => {
   return (
     <div>
         <h1>Dashboard</h1>
-        <Link href={"/dashboard/reports"}>View Reports</Link>
+        <Link href={"/profile"}>View Reports</Link>
     </div>
   )
 }
