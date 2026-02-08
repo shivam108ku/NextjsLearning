@@ -7,7 +7,7 @@ const Section = () => {
         <h1>
             Section
         </h1>
-        <Link href={"/settings"}>Go to the Settings</Link>
+        <Link href={"/admin"}>Go to the Admin</Link>
     </div>
   )
 }
