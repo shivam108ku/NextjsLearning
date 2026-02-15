@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { users } from "../hello/route";
 
 export async function POST(request){
     try {
@@ -19,9 +20,22 @@ export async function POST(request){
 
     const newUser = {
         id:users.length + 1,
+        name:name,
+        email:email,
+        age:age
     }
 
-    } catch (err) {
+    users.push(newUser)
 
+    return NextResponse.json({
+        success:true,
+        data:users,
+        message:"User Created",
+    },{status:201})
+
+    } catch (err) {
+        return NextResponse.json({success:false, error:"Failed to ctreate user"},
+            {status:500}
+        )
     }
 }
