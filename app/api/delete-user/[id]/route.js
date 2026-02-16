@@ -32,6 +32,6 @@ export async function DELETE(request, { params }) {
         message: "User Not Updated",
       },
       { status: 500 },
-    );
+    ); 
   }
 }
