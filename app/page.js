@@ -1,6 +1,7 @@
-import Image from "next/image";
+import dbConnect from "@/lib/db";
+export default async function Home() {
 
-export default function Home() {
+  await dbConnect();
   return (
      <div className="flex flex-col h-screen justify-center items-center">
           <h1 className="text-4xl text-green-500 font-extrabold">Hello World 😒😒</h1>
