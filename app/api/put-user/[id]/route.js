@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { users } from "../../hello/route";
 
+// PUT for all changes 
+
 export async function PUT(request, { params }) {
   try {
     const { id } = await params;
