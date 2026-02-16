@@ -20,20 +20,3 @@ export const users = [
          agr:"233",
     },
 ];
-
-export async function GET(request){
-    try {
-        return NextResponse.json({
-            success: true,
-            data: users,
-            total: users.length
-        });
-    } catch (error) {
-        return NextResponse.json({
-            success: false,
-            message: "An error occurred",
-            error: error?.message || error
-        }, { status: 500 });
-    }
-
-}
