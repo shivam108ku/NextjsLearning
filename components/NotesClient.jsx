@@ -3,11 +3,12 @@
 import axios from "axios";
 import { useState } from "react";
 
-const NoteClient = () => {
+const NoteClient = ({initialNotes}) => {
   const [state, setState] = useState({
     title: "",
     content: "",
     loading: false,
+    notes:initialNotes,
   });
 
   const createNote = async (e) => {
@@ -21,11 +22,27 @@ const NoteClient = () => {
   { title: state.title.trim(), content: state.content.trim() },  // DATA
   { headers: { "Content-Type": "application/json" } }           // OPTIONS
 );
-      const result = response.data;
-      console.log(result);
-      setState((prev) => ({ ...prev, loading: false }));
+      const result = response.data?.data;
+      if (!result) {
+        throw new Error("Invalid API response");
+      }
+      const newNote = {
+        _id: result._id?.toString?.() ?? String(result._id),
+        title: result.title,
+        content: result.content,
+        createdAt: result.createdAt ?? null,
+        updatedAt: result.updatedAt ?? null,
+      };
+      setState((prev) => ({ 
+        ...prev, 
+        loading: false,
+        notes: [newNote, ...prev.notes],
+        title: "",
+        content: ""
+      }));
     } catch (error) {
       console.error("Error creating note:", error);
+      setState((prev) => ({ ...prev, loading: false }));
     }
   };
 
@@ -68,6 +85,25 @@ const NoteClient = () => {
           </button>
         </div>
       </form>
+
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold">Your Notes ({state.notes.length})</h2>
+        {state.notes.length === 0 ? ( 
+          <p>No Notes</p> 
+        ) : ( 
+          state.notes.map((note) => (
+            <div key={note._id} className="border p-3 rounded bg-white mb-3"> 
+              <h3 className="font-semibold text-gray-800">{note.title}</h3>
+              <p className="text-gray-600 mt-2">{note.content}</p>
+              <div className="flex gap-2 mt-3">
+                <button className="text-blue-500 hover:underline">edit</button>
+                <button className="text-red-500 hover:underline">delete</button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
     </div>
   );
 };
